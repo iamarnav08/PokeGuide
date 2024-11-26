@@ -9,16 +9,16 @@ This is a comprehensive Python application for managing a Pokémon database usin
 ## Database Functions
 
 ### Pokémon Management
+- `readAboutPokemon()`:
+  - Provides flexible search for Pokémon by name or type
+  - Retrieves comprehensive Pokémon details including stats, type information
+  - Displays results in a tabular format using tabulate library
+
 - `addNewPokemon()`: 
   - Allows adding a new Pokémon to the database
   - Collects detailed information including Pokémon number, name, stats, moves, and type
   - Inserts data into multiple tables: Owned_Pokemon, Moves, and Poke_Type
   - Handles database transactions with commit and rollback
-
-- `readAboutPokemon()`:
-  - Provides flexible search for Pokémon by name or type
-  - Retrieves comprehensive Pokémon details including stats, type information
-  - Displays results in a tabular format using tabulate library
 
 - `releasePokemon()`:
   - Enables deleting a Pokémon from the database
@@ -26,16 +26,16 @@ This is a comprehensive Python application for managing a Pokémon database usin
   - Provides feedback on successful deletion or if no Pokémon is found
 
 ### Battle System
+- `viewBattleData()`:
+  - Provides flexible filtering for battle history
+  - Can filter by battle type, outcome, date range, Pokémon
+  - Displays battle information in a detailed table
+
 - `addNewBattle()`:
   - Supports adding both Gym and Normal battles
   - Tracks battle details like Pokémon used, outcome, date
   - Updates gym badges for won battles
   - Automatically updates Pokémon XP after battles
-
-- `viewBattleData()`:
-  - Provides flexible filtering for battle history
-  - Can filter by battle type, outcome, date range, Pokémon
-  - Displays battle information in a detailed table
 
 - `updateXP()`:
   - Automatically manages Pokémon experience points

@@ -1,6 +1,7 @@
 import subprocess as sp
 import pymysql
 import pymysql.cursors
+import subprocess as sp
 from tabulate import tabulate
 
 
@@ -35,7 +36,59 @@ def addNewPokemon():
         {row["XP"]}, '{row["Gender"]}', {row["HP"]}, {row["Level"]}, {row["Special_Attack"]}, {row["Attack"]}, 
         {row["Defence"]}, {row["Special_Defence"]}, {row["Speed"]});
         """
+
+        row2={}
+        row2["Pokemon_Number"] = row["Poke_Number"]
+        row2["Move_Name"] = input("Move 1 Name: ")
+        row2["Type"] = input("Type: ")
+        row2["Category"] = input("Category: ")
+        row2["Power"] = int(input("Power: "))
+        row2["Accuracy"] = int(input("Accuracy: "))
+        row2["Contact"] = input("Contact (TRUE(1)/FALSE(0)): ")
+        row2["PP"] = int(input("PP: "))
+
+        quer2=f"""
+        INSERT INTO Moves   
+        (Pokemon_Number, Move_Name, Type, Category, Power, Accuracy, Contact, PP)
+        VALUES
+        ({row2["Pokemon_Number"]}, '{row2["Move_Name"]}', '{row2["Type"]}', '{row2["Category"]}', {row2["Power"]}, {row2["Accuracy"]}, '{row2["Contact"]}', {row2["PP"]});
+        """
+        print()
+        row3={}
+        row3["Pokemon_Number"] = row["Poke_Number"]
+        row3["Move_Name"] = input("Move 2 Name: ")
+        row3["Type"] = input("Type: ")
+        row3["Category"] = input("Category: ")
+        row3["Power"] = int(input("Power: "))
+        row3["Accuracy"] = int(input("Accuracy: "))
+        row3["Contact"] = input("Contact (YES(1)/NO(0)): ")
+        row3["PP"] = int(input("PP: "))
+        quer3=f"""
+        INSERT INTO Moves
+        (Pokemon_Number, Move_Name, Type, Category, Power, Accuracy, Contact, PP)
+        VALUES
+        ({row3["Pokemon_Number"]}, '{row3["Move_Name"]}', '{row3["Type"]}', '{row3["Category"]}', {row3["Power"]}, {row3["Accuracy"]}, '{row3["Contact"]}', {row3["PP"]});
+        """
+        print()
+        row4={}
+        row4["Pokemon_Number"] = row["Poke_Number"]
+        row4["Type"] = row["Type"]
+        row4["Strong_Against"] = input("Strong Against: ")
+        row4["Weak_Against"] = input("Weak Against: ")
+        row4["Immune_To"] = input("Immune To: ")
+        quer4=f"""
+        INSERT INTO Poke_Type
+        (Pokemon_Number, Type, Strong_Against, Weak_Against, Immune_To)
+        VALUES
+        ({row4["Pokemon_Number"]}, '{row4["Type"]}', '{row4["Strong_Against"]}', '{row4["Weak_Against"]}', '{row4["Immune_To"]}');
+        """
+
+
+        
         cur.execute(query)
+        cur.execute(quer2)
+        cur.execute(quer3)
+        cur.execute(quer4)
         con.commit()
         print("Pokémon added successfully!")
 
@@ -109,6 +162,7 @@ def readAboutPokemon():
             return
 
         # Execute the query
+        print(query)
         cur.execute(query)
         results = cur.fetchall()
 
@@ -179,97 +233,97 @@ def viewBattleData():
         print("Failed to fetch battle data.")
         print(">>>>>>>>>>>>>", e)
 
-def addNewBattle():
-    """
-    Function to add a new battle to the database.
-    - Handles both Gym and Normal battles.
-    - If the battle is a Gym battle and won, updates the Badge_Won attribute.
-    - Adds entries to Normal_Battle, Battling_Gym_Leader, and Battling_Rival_Trainer as appropriate.
-    """
-    try:
-        battle = {}
-        print("Enter new battle details:")
-        battle["Battle_ID"] = int(input("Battle ID: "))
-        battle["Pokemon_Used"] = int(input("Pokemon Used (Poke Number): "))
-        battle["Type"] = input("Battle Type (Gym/Normal): ")
-        battle["Outcome"] = input("Outcome (Win/Loss): ")
-        battle["Date"] = input("Date (YYYY-MM-DD): ")
+# def addNewBattle():
+#     """
+#     Function to add a new battle to the database.
+#     - Handles both Gym and Normal battles.
+#     - If the battle is a Gym battle and won, updates the Badge_Won attribute.
+#     - Adds entries to Normal_Battle, Battling_Gym_Leader, and Battling_Rival_Trainer as appropriate.
+#     """
+#     try:
+#         battle = {}
+#         print("Enter new battle details:")
+#         battle["Battle_ID"] = int(input("Battle ID: "))
+#         battle["Pokemon_Used"] = int(input("Pokemon Used (Poke Number): "))
+#         battle["Type"] = input("Battle Type (Gym/Normal): ")
+#         battle["Outcome"] = input("Outcome (Win/Loss): ")
+#         battle["Date"] = input("Date (YYYY-MM-DD): ")
 
-        # Insert into Battle table
-        query = f"""
-        INSERT INTO Battle (Battle_Number, Pokemon_Used, Battle_Type, Outcome, Date)
-        VALUES ({battle["Battle_ID"]}, {battle["Pokemon_Used"]}, '{battle["Type"]}', '{battle["Outcome"]}', '{battle["Date"]}');
-        """
-        cur.execute(query)
+#         # Insert into Battle table
+#         query = f"""
+#         INSERT INTO Battle (Battle_Number, Pokemon_Used, Battle_Type, Outcome, Date)
+#         VALUES ({battle["Battle_ID"]}, {battle["Pokemon_Used"]}, '{battle["Type"]}', '{battle["Outcome"]}', '{battle["Date"]}');
+#         """
+#         cur.execute(query)
 
-        if battle["Type"].lower() == "gym":
-            # Gym battle handling
-            gym_leader = input("Gym Leader Name: ")
-            gym_name = input("Gym Name: ")
-            location = input("Gym Location: ")
+#         if battle["Type"].lower() == "gym":
+#             # Gym battle handling
+#             gym_leader = input("Gym Leader Name: ")
+#             gym_name = input("Gym Name: ")
+#             location = input("Gym Location: ")
 
-            # Insert into Gym_Battle table
-            query = f"""
-            INSERT INTO Gym_Battle (Battle_Number, Gym)
-            VALUES ({battle["Battle_ID"]}, '{gym_name}');
-            """
-            cur.execute(query)
+#             # Insert into Gym_Battle table
+#             query = f"""
+#             INSERT INTO Gym_Battle (Battle_Number, Gym)
+#             VALUES ({battle["Battle_ID"]}, '{gym_name}');
+#             """
+#             cur.execute(query)
 
-            # Insert into Battling_Gym_Leader table
-            query = f"""
-            INSERT INTO Battling_Gym_Leader (Battle_Number, Pokemon_Number, Location)
-            VALUES ({battle["Battle_ID"]}, {battle["Pokemon_Used"]}, '{location}');
-            """
-            cur.execute(query)
+#             # Insert into Battling_Gym_Leader table
+#             query = f"""
+#             INSERT INTO Battling_Gym_Leader (Battle_Number, Pokemon_Number, Location)
+#             VALUES ({battle["Battle_ID"]}, {battle["Pokemon_Used"]}, '{location}');
+#             """
+#             cur.execute(query)
 
-            # If the outcome is Win, check if the badge is already won
-            if battle["Outcome"].lower() == "win":
-                # Check if this gym's badge has already been won
-                query = f"""
-                SELECT Badge_Won FROM Pokemon_Gym WHERE Gym_Badge = '{gym_name}';
-                """
-                cur.execute(query)
-                result = cur.fetchone()
+#             # If the outcome is Win, check if the badge is already won
+#             if battle["Outcome"].lower() == "win":
+#                 # Check if this gym's badge has already been won
+#                 query = f"""
+#                 SELECT Badge_Won FROM Pokemon_Gym WHERE Gym_Badge = '{gym_name}';
+#                 """
+#                 cur.execute(query)
+#                 result = cur.fetchone()
 
-                if result and result[0] == 0:  # If Badge_Won is False (0)
-                    # Update the Gym table to set Badge_Won to True
-                    query = f"""
-                    UPDATE Pokemon_Gym
-                    SET Badge_Won = TRUE
-                    WHERE Gym_Badge = '{gym_name}';
-                    """
-                    cur.execute(query)
-                    print(f"Badge for {gym_name} updated to 'Won'.")
-                else:
-                    print(f"Gym Badge for {gym_name} has already been won.")
+#                 if result and result[0] == 0:  # If Badge_Won is False (0)
+#                     # Update the Gym table to set Badge_Won to True
+#                     query = f"""
+#                     UPDATE Pokemon_Gym
+#                     SET Badge_Won = TRUE
+#                     WHERE Gym_Badge = '{gym_name}';
+#                     """
+#                     cur.execute(query)
+#                     print(f"Badge for {gym_name} updated to 'Won'.")
+#                 else:
+#                     print(f"Gym Badge for {gym_name} has already been won.")
 
-        elif battle["Type"].lower() == "normal":
-            # Normal battle handling
-            rival_trainer_id = int(input("Rival Trainer ID: "))
-            location = input("Battle Location: ")
+#         elif battle["Type"].lower() == "normal":
+#             # Normal battle handling
+#             rival_trainer_id = int(input("Rival Trainer ID: "))
+#             location = input("Battle Location: ")
 
-            # Insert into Normal_Battle table
-            query = f"""
-            INSERT INTO Normal_Battle (Battle_Number, Location, Rival_ID)
-            VALUES ({battle["Battle_ID"]}, '{location}', {rival_trainer_id});
-            """
-            cur.execute(query)
+#             # Insert into Normal_Battle table
+#             query = f"""
+#             INSERT INTO Normal_Battle (Battle_Number, Location, Rival_ID)
+#             VALUES ({battle["Battle_ID"]}, '{location}', {rival_trainer_id});
+#             """
+#             cur.execute(query)
 
-            # Insert into Battling_Rival_Trainer table
-            query = f"""
-            INSERT INTO Battling_Rival_Trainer (Battle_Number, Pokemon_Number, Trainer_No)
-            VALUES ({battle["Battle_ID"]}, {battle["Pokemon_Used"]}, {rival_trainer_id});
-            """
-            cur.execute(query)
+#             # Insert into Battling_Rival_Trainer table
+#             query = f"""
+#             INSERT INTO Battling_Rival_Trainer (Battle_Number, Pokemon_Number, Trainer_No)
+#             VALUES ({battle["Battle_ID"]}, {battle["Pokemon_Used"]}, {rival_trainer_id});
+#             """
+#             cur.execute(query)
 
-        # Commit the transaction
-        con.commit()
-        print("Battle added successfully!")
+#         # Commit the transaction
+#         con.commit()
+#         print("Battle added successfully!")
 
-    except Exception as e:
-        con.rollback()
-        print("Failed to add battle.")
-        print(">>>>>>>>>>>>>", e)
+#     except Exception as e:
+#         con.rollback()
+#         print("Failed to add battle.")
+#         print(">>>>>>>>>>>>>", e)
 
 
 def viewGyms():
@@ -360,17 +414,21 @@ def updateXP(pokemon_id, battle_outcome):
         SET XP = XP + {xp_increase}
         WHERE Poke_Number = {pokemon_id};
         """
+        print(query)
         cur.execute(query)
 
         # Fetch the new XP value for the Pokémon
         query = f"""
         SELECT XP FROM Owned_Pokemon WHERE Poke_Number = {pokemon_id};
         """
+        print(query)
         cur.execute(query)
-        current_xp = cur.fetchone()[0]
+        current_xp = cur.fetchone()['XP']
+        print("current xp",current_xp)
 
         # Calculate the new level based on total XP
         new_level = current_xp // 4000  # Level based on multiples of 4000 XP
+        print("new level",new_level)
 
         # Update the Pokémon's level
         query = f"""
@@ -378,6 +436,7 @@ def updateXP(pokemon_id, battle_outcome):
         SET Level = {new_level}
         WHERE Poke_Number = {pokemon_id};
         """
+        print(query)
         cur.execute(query)
 
         print(f"Pokémon {pokemon_id} level updated! New Level: {new_level}, Total XP: {current_xp}")

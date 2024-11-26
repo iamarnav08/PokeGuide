@@ -1,6 +1,6 @@
 -- Create database
-CREATE DATABASE PokeGuide2;
-USE PokeGuide2;
+CREATE DATABASE PokeGuide;
+USE PokeGuide;
 
 -- Create tables based on the schema
 
@@ -16,6 +16,7 @@ CREATE TABLE Cure (
     Cure VARCHAR(50),
     Ail_Name VARCHAR(50),
     FOREIGN KEY (Ail_Name) REFERENCES Ailment_Type(Ail_Name)
+    ON DELETE CASCADE
 );
 
 -- Owned_Pokemon
@@ -47,7 +48,9 @@ CREATE TABLE Poke_Type (
     Strong_Against VARCHAR(50),
     PRIMARY KEY (Pokemon_Number, Type),
     FOREIGN KEY (Pokemon_Number) REFERENCES Owned_Pokemon(Poke_Number)
+    ON DELETE CASCADE
 );
+
 
 -- Moves
 CREATE TABLE Moves (
@@ -61,6 +64,7 @@ CREATE TABLE Moves (
     Pokemon_Number INT,
     PRIMARY KEY (Move_Name, Pokemon_Number),
     FOREIGN KEY (Pokemon_Number) REFERENCES Owned_Pokemon(Poke_Number)
+    ON DELETE CASCADE
 );
 
 -- Move_Type
@@ -68,8 +72,9 @@ CREATE TABLE Move_Type (
     Move_Name VARCHAR(50),
     Poke_Name VARCHAR(50),
     PRIMARY KEY (Move_Name, Poke_Name),
-    FOREIGN KEY (Move_Name) REFERENCES Moves(Move_Name),
+    FOREIGN KEY (Move_Name) REFERENCES Moves(Move_Name) ON DELETE CASCADE,
     FOREIGN KEY (Poke_Name) REFERENCES Owned_Pokemon(Poke_Name)
+    ON DELETE CASCADE
 );
 
 -- Battle
@@ -80,6 +85,7 @@ CREATE TABLE Battle (
     Date DATE,
     Outcome VARCHAR(50),
     FOREIGN KEY (Pokemon_Used) REFERENCES Owned_Pokemon(Poke_Number)
+    ON DELETE CASCADE
 );
 
 -- Normal_Battle
@@ -88,6 +94,7 @@ CREATE TABLE Normal_Battle (
     Location VARCHAR(50),
     Rival_ID INT,
     FOREIGN KEY (Battle_Number) REFERENCES Battle(Battle_Number)
+    ON DELETE CASCADE
 );
 
 -- Gym_Battle
@@ -96,6 +103,7 @@ CREATE TABLE Gym_Battle (
     Gym VARCHAR(50),
     Gym_Leader VARCHAR(50),
     FOREIGN KEY (Battle_Number) REFERENCES Battle(Battle_Number)
+    ON DELETE CASCADE
 );
 
 -- Bag_Items
@@ -176,8 +184,9 @@ CREATE TABLE Battling_Gym_Leader (
     Pokemon_Number INT,
     Location VARCHAR(50),
     -- PRIMARY KEY (Battle_Number, Pokemon_Number),
-    FOREIGN KEY (Battle_Number) REFERENCES Gym_Battle(Battle_Number),
+    FOREIGN KEY (Battle_Number) REFERENCES Gym_Battle(Battle_Number) ON DELETE CASCADE,
     FOREIGN KEY (Pokemon_Number) REFERENCES Owned_Pokemon(Poke_Number)
+    ON DELETE CASCADE
 );
 
 -- Battling_Rival_Trainer
@@ -186,9 +195,10 @@ CREATE TABLE Battling_Rival_Trainer (
     Pokemon_Number INT,
     Trainer_No INT,
     PRIMARY KEY (Battle_Number, Pokemon_Number),
-    FOREIGN KEY (Battle_Number) REFERENCES Normal_Battle(Battle_Number),
-    FOREIGN KEY (Pokemon_Number) REFERENCES Owned_Pokemon(Poke_Number),
+    FOREIGN KEY (Battle_Number) REFERENCES Normal_Battle(Battle_Number) ON DELETE CASCADE,
+    FOREIGN KEY (Pokemon_Number) REFERENCES Owned_Pokemon(Poke_Number) ON DELETE CASCADE,
     FOREIGN KEY (Trainer_No) REFERENCES Rival_Trainer(Trainer_No)
+    ON DELETE CASCADE
 );
 
 

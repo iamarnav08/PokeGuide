@@ -1,5 +1,5 @@
 ![Logo](PokeGuide2.jpeg)
-<img src="PokeGuide2.png" alt="PokeGuide Logo" width="150" height="100">
+<img src="PokeGuide2.png" alt="PokeGuide Logo" width="50" height="33">
 
 # Pokémon Database Management Application
 

@@ -129,7 +129,7 @@ CREATE TABLE `Battle` (
 
 LOCK TABLES `Battle` WRITE;
 /*!40000 ALTER TABLE `Battle` DISABLE KEYS */;
-INSERT INTO `Battle` VALUES (1,'Gym Battle',63,'2024-11-01','Win'),(2,'Trainer Battle',65,'2024-11-02','Win'),(3,'Gym Battle',15,'2024-11-05','Win'),(4,'Trainer Battle',9,'2024-11-06','Lose'),(5,'Gym Battle',1,'2024-11-07','Win'),(6,'Trainer Battle',12,'2024-11-08','Win'),(7,'Gym Battle',10,'2024-11-10','Win'),(8,'Gym Battle',6,'2024-11-12','Win'),(9,'Gym Battle',4,'2024-11-14','Lose'),(10,'Gym Battle',5,'2024-11-16','Win'),(11,'Trainer Battle',148,'2024-11-18','Win'),(12,'Trainer Battle',149,'2024-11-20','Win');
+INSERT INTO `Battle` VALUES (1,'Gym Battle',63,'2024-11-01','Win'),(2,'Normal Battle',65,'2024-11-02','Win'),(3,'Gym Battle',15,'2024-11-05','Win'),(4,'Normal Battle',9,'2024-11-06','Loss'),(5,'Gym Battle',1,'2024-11-07','Win'),(6,'Normal Battle',12,'2024-11-08','Win'),(7,'Gym Battle',10,'2024-11-10','Win'),(8,'Gym Battle',6,'2024-11-12','Win'),(9,'Gym Battle',4,'2024-11-14','Loss'),(10,'Gym Battle',5,'2024-11-16','Win'),(11,'Normal Battle',148,'2024-11-18','Win'),(12,'Normal Battle',149,'2024-11-20','Win');
 /*!40000 ALTER TABLE `Battle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -537,4 +537,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-28 16:15:29
+-- Dump completed on 2024-11-29  0:24:58

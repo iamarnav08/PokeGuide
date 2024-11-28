@@ -1,11 +1,24 @@
-![Logo](PokeGuide2.jpeg)
-<img src="PokeGuide2.png" alt="PokeGuide Logo" width="50" height="33">
+<img src="PokeGuide.jpeg" alt="PokeGuide Logo" width="500" height="500">
+
+# Team 37
+<span style="font-size: 20px; color: turquoise;">
+Arnav Sharma 2023111033<br>
+Hardik Chadha 2023111031<br>
+Hiten Garg 2023101116<br>
+Virat Garg 2023101081
+</span>
+<br><br><br>
+
 
 # Pokémon Database Management Application
 
 ## Overview
 
 PokéGuide is a comprehensive Python+SQL application for managing a Pokémon database using PyMySQL, providing various functionalities for tracking Pokémon, battles, items, and more.
+
+## Link to Presentation Video
+[Link to 1x Speed, 1080p Presentation Video](https://youtu.be/xz5PQb0MNc8 "Link to Presentation Video")
+
 
 ## Database Functions
 

@@ -1,4 +1,4 @@
-<img src="PokeGuide.jpeg" alt="PokeGuide Logo" width="500" height="500">
+<img src="PokeGuide.jpeg" alt="PokeGuide Logo" width="350" height="350">
 
 # Team 37
 <span style="font-size: 20px; color: turquoise;">
